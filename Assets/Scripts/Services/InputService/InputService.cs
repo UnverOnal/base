@@ -45,8 +45,9 @@ namespace Services.InputService
             if(OnItemPicked == null)
                 return;
 
-            var selectedGameObject = _inputTracker.GetSelectedGameObject();
-            OnItemPicked.Invoke(selectedGameObject);
+            _pickedGameObject = _inputTracker.GetSelectedGameObject();
+            if(_pickedGameObject != null)
+                OnItemPicked.Invoke(_pickedGameObject);
         }
         
         public int GetSwipe(float sensitivity)
