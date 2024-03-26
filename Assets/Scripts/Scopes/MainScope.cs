@@ -1,3 +1,4 @@
+using GameManagement;
 using Services.CommandService;
 using Services.DataStorageService;
 using Services.FileConversionService;
@@ -16,9 +17,11 @@ namespace Scopes
         
         protected override void Configure(IContainerBuilder builder)
         {
+            InstallServices(builder);
+
             builder.RegisterInstance(sceneDataContainer);
             
-            InstallServices(builder);
+            builder.RegisterEntryPoint<GameManager>();
         }
 
         private void InstallServices(IContainerBuilder builder)
