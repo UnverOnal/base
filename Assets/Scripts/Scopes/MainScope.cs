@@ -1,3 +1,6 @@
+using Services.CommandService;
+using Services.DataStorageService;
+using Services.FileConversionService;
 using Services.InputService;
 using Services.PoolingService;
 using Services.SceneService;
@@ -25,6 +28,12 @@ namespace Scopes
             
             builder.Register<InputService>(Lifetime.Singleton).As<IInputService>().AsSelf();
             builder.RegisterEntryPoint<InputEntryPoint>();
+
+            builder.Register<IFileConversionService, FileConversionService>(Lifetime.Singleton);
+
+            builder.Register<ICommandService, CommandService>(Lifetime.Singleton);
+
+            builder.Register<IDataStorageService, DataStorageService>(Lifetime.Singleton);
         }
     }
 }
