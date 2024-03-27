@@ -4,6 +4,7 @@ using UI;
 using UI.Screens;
 using UI.Screens.Game;
 using UI.Screens.Home;
+using Ui.Screens.LevelEnd;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -14,6 +15,7 @@ namespace Scopes
     {
         [SerializeField] private HomeScreenResources homeScreenResources;
         [SerializeField] private GameScreenResources gameScreenResources;
+        [SerializeField] private LevelEndScreenResources levelEndScreenResources;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -32,6 +34,9 @@ namespace Scopes
 
             builder.RegisterInstance(gameScreenResources);
             builder.Register<GameScreenPresenter>(Lifetime.Singleton).AsSelf().As<IScreenPresenter>();
+
+            builder.RegisterInstance(levelEndScreenResources);
+            builder.Register<LevelEndScreenPresenter>(Lifetime.Singleton).AsSelf().As<IScreenPresenter>();
         }
     }
 }

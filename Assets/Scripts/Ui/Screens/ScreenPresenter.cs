@@ -3,7 +3,7 @@ using GameState;
 
 namespace UI.Screens
 {
-    public abstract class ScreenPresenter : IDisposable
+    public abstract class ScreenPresenter : IScreenPresenter, IDisposable
     {
         private readonly GameStatePresenter _gameStatePresenter;
 
@@ -11,13 +11,18 @@ namespace UI.Screens
         {
             _gameStatePresenter = gameStatePresenter;
         }
-
-        protected void SetStateAction()
+        
+        public virtual void Initialize()
         {
-            _gameStatePresenter.OnStateUpdate += OnStateUpdate;
+            SetStateAction();
         }
 
         protected abstract void OnStateUpdate(GameState.GameState gameState);
+        
+        private void SetStateAction()
+        {
+            _gameStatePresenter.OnStateUpdate += OnStateUpdate;
+        }
 
         public virtual void Dispose()
         {

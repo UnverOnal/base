@@ -123,41 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &51234672
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 51234673}
-  m_Layer: 5
-  m_Name: InGame
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &51234673
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 51234672}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 833979725}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &581893293
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,9 +132,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 581893294}
+  - component: {fileID: 581893296}
   - component: {fileID: 581893295}
   m_Layer: 5
-  m_Name: LevelEnd
+  m_Name: LevelEndScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -182,13 +148,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 581893293}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1322767330}
-  m_Father: {fileID: 833979725}
+  m_Father: {fileID: 1492668605}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -207,7 +173,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc3c856ab31f7804ab066ca16e5cb44a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelEndGameObject: {fileID: 581893293}
+  screen: {fileID: 581893296}
+  screenGameObject: {fileID: 581893293}
+--- !u!225 &581893296
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581893293}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &649288746
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,6 +222,7 @@ MonoBehaviour:
   autoInjectGameObjects: []
   homeScreenResources: {fileID: 1738453830}
   gameScreenResources: {fileID: 833979726}
+  levelEndScreenResources: {fileID: 581893295}
 --- !u!4 &649288748
 Transform:
   m_ObjectHideFlags: 0
@@ -381,9 +361,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 51234673}
-  - {fileID: 581893294}
+  m_Children: []
   m_Father: {fileID: 1492668605}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -405,8 +383,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screen: {fileID: 833979727}
   screenGameObject: {fileID: 833979724}
-  inGameObject: {fileID: 51234672}
-  levelEndResources: {fileID: 581893295}
 --- !u!225 &833979727
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -792,6 +768,7 @@ RectTransform:
   m_Children:
   - {fileID: 1738453828}
   - {fileID: 833979725}
+  - {fileID: 581893294}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

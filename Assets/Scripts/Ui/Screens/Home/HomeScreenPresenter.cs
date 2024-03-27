@@ -3,7 +3,7 @@ using VContainer;
 
 namespace UI.Screens.Home
 {
-    public class HomeScreenPresenter : ScreenPresenter, IScreenPresenter
+    public class HomeScreenPresenter : ScreenPresenter
     {
         private readonly HomeScreenResources _resources;
         private readonly HomeScreenView _screenView;
@@ -15,9 +15,9 @@ namespace UI.Screens.Home
             _screenView = new HomeScreenView(resources, statePresenter);
         }
 
-        public void Initialize()
+        public override void Initialize()
         {
-            SetStateAction();
+            base.Initialize();
             _resources.playButton.onClick.AddListener(_screenView.OnPlayButtonClicked);
         }
 
