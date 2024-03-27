@@ -17,7 +17,7 @@ namespace UI.Screens
             SetStateAction();
         }
 
-        protected abstract void OnStateUpdate(GameState.GameState gameState);
+        protected abstract void OnStateUpdate(GameManagement.GameState.GameState gameState);
         
         private void SetStateAction()
         {

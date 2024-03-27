@@ -26,9 +26,9 @@ namespace Ui.Screens.LevelEnd
             base.Initialize();
         }
 
-        protected override void OnStateUpdate(GameState.GameState gameState)
+        protected override void OnStateUpdate(GameManagement.GameState.GameState gameState)
         {
-            if (gameState == GameState.GameState.LevelEnd)
+            if (gameState == GameManagement.GameState.GameState.LevelEnd)
                 _screenView.Enable();
             else if(_screenView.IsActive)
                 _screenView.Disable();

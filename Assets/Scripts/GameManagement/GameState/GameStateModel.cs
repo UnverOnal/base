@@ -1,10 +1,9 @@
-namespace GameState
+namespace GameManagement.GameState
 {
     public enum GameState
     {
         Home,
         Game,
-        LevelSelection,
         LevelEnd
     }
     

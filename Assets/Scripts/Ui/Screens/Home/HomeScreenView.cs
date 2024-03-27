@@ -1,22 +1,28 @@
 using GameState;
+using Ui.Animation.Transition.TransitionAnimations;
 
 namespace UI.Screens.Home
 {
     public class HomeScreenView : ScreenView
     {
         private readonly GameStatePresenter _statePresenter;
-        private HomeScreenResources _resources;
+        private readonly HomeScreenResources _resources;
         
-        public HomeScreenView(ScreenResources screenResources, GameStatePresenter statePresenter) : base(screenResources)
+        public HomeScreenView(HomeScreenResources screenResources, GameStatePresenter statePresenter)
         {
             _statePresenter = statePresenter;
-            _resources = (HomeScreenResources)screenResources;
+            _resources = screenResources;
         }
 
         public void OnPlayButtonClicked()
         {
-            _statePresenter.UpdateGameState(GameState.GameState.LevelSelection);
+            _statePresenter.UpdateGameState(GameManagement.GameState.GameState.Game);
             Disable();
+        }
+
+        protected override void CreateTransitions()
+        {
+            uiTransitions.Add(new Fade(_resources.fadeData));
         }
     }
 }

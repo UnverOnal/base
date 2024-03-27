@@ -1,25 +1,33 @@
+using System.Collections.Generic;
+using Ui.Animation.Transition;
+
 namespace UI.Screens
 {
-    public class ScreenView
+    public abstract class ScreenView
     {
         public bool IsActive { get; private set; }
-        private readonly Panel _panel;
 
-        protected ScreenView(ScreenResources screenResources)
+        protected readonly List<IUiTransition> uiTransitions;
+
+        protected ScreenView()
         {
-            _panel = new Panel(screenResources.screen, screenResources.screenGameObject);
+            uiTransitions = new List<IUiTransition>();
         }
 
         public void Enable()
         {
             IsActive = true;
-            _panel.EnablePanel(instant:false);
+            for (int i = 0; i < uiTransitions.Count; i++)
+                uiTransitions[i].Enable();
         }
 
         public void Disable()
         {
             IsActive = false;
-            _panel.DisablePanel(instant : false);
+            for (int i = 0; i < uiTransitions.Count; i++)
+                uiTransitions[i].Disable();
         }
+
+        protected abstract void CreateTransitions();
     }
 }

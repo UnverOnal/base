@@ -23,9 +23,9 @@ namespace UI.Screens.Game
             base.Initialize();
         }
 
-        protected override void OnStateUpdate(GameState.GameState gameState)
+        protected override void OnStateUpdate(GameManagement.GameState.GameState gameState)
         {
-            if (gameState == GameState.GameState.Game)
+            if (gameState == GameManagement.GameState.GameState.Game)
                 _screenView.Enable();
             else if(_screenView.IsActive)
                 _screenView.Disable();

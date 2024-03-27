@@ -1,3 +1,4 @@
+using Ui.Animation.Transition.TransitionAnimations;
 
 namespace UI.Screens.Game
 {
@@ -5,9 +6,14 @@ namespace UI.Screens.Game
     {
         private readonly GameScreenResources _resources;
         
-        public GameScreenView(ScreenResources screenResources) : base(screenResources)
+        public GameScreenView(GameScreenResources screenResources)
         {
-            _resources = (GameScreenResources)screenResources;
+            _resources = screenResources;
+        }
+
+        protected override void CreateTransitions()
+        {
+            uiTransitions.Add(new Fade(_resources.fadeData));
         }
     }
 }

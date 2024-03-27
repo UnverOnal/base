@@ -21,9 +21,9 @@ namespace UI.Screens.Home
             _resources.playButton.onClick.AddListener(_screenView.OnPlayButtonClicked);
         }
 
-        protected override void OnStateUpdate(GameState.GameState gameState)
+        protected override void OnStateUpdate(GameManagement.GameState.GameState gameState)
         {
-            if(gameState == GameState.GameState.Home)
+            if(gameState == GameManagement.GameState.GameState.Home)
                 _screenView.Enable();
             else if(_screenView.IsActive)
                 _screenView.Disable();
