@@ -1,26 +1,23 @@
 using System.Collections.Generic;
-using System.Linq;
 using Ui.Animation.Transition.TransitionData;
 
 namespace Ui.Animation.Transition.TransitionAnimations
 {
-    public class ScaleUp : UiTransition, IUiTransition
+    public class ScaleUp : IUiTransition
     {
         private IEnumerable<ScaleUpData> _scaleUpData;
-        
-        public ScaleUp(IReadOnlyCollection<UiTransitionData> uiAnimationData) : base(uiAnimationData)
+
+        public ScaleUp(IEnumerable<ScaleUpData> scaleUpData)
         {
-            _scaleUpData = uiAnimationData.Cast<ScaleUpData>();
+            _scaleUpData = scaleUpData;
         }
-        
+
         public void Enable()
         {
-            
         }
 
         public void Disable()
         {
-            
         }
     }
 }

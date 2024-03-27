@@ -1,18 +1,17 @@
 using System.Collections.Generic;
-using System.Linq;
 using Ui.Animation.Transition.TransitionData;
 
 namespace Ui.Animation.Transition.TransitionAnimations
 {
-    public class Slide : UiTransition, IUiTransition
+    public class Slide : IUiTransition
     {
         private IEnumerable<SlideData> _slideData;
-        
-        public Slide(IReadOnlyCollection<UiTransitionData> uiAnimationData) : base(uiAnimationData)
+
+        public Slide(IEnumerable<SlideData> slideData)
         {
-            _slideData = uiAnimationData.Cast<SlideData>();
+            _slideData = slideData;
         }
-        
+
         public void Enable()
         {
         }
@@ -20,6 +19,5 @@ namespace Ui.Animation.Transition.TransitionAnimations
         public void Disable()
         {
         }
-        
     }
 }

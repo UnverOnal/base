@@ -6,13 +6,13 @@ using Ui.Animation.Transition.TransitionData;
 
 namespace Ui.Animation.Transition.TransitionAnimations
 {
-    public class Fade : UiTransition, IUiTransition
+    public class Fade : IUiTransition
     {
         private readonly IEnumerable<FadeData> _fadeData;
 
-        public Fade(IReadOnlyCollection<UiTransitionData> uiAnimationData) : base(uiAnimationData)
+        public Fade(IEnumerable<FadeData> fadeData)
         {
-            _fadeData = uiAnimationData.Cast<FadeData>();
+            _fadeData = fadeData;
         }
 
         public async void Enable()
