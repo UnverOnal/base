@@ -10,10 +10,5 @@ namespace Ui.Screens.LevelEnd
         {
             _screenResources = screenResources;
         }
-
-        protected override void CreateTransitions()
-        {
-            
-        }
     }
 }

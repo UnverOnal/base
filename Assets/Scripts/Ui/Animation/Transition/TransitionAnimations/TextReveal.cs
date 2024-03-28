@@ -1,15 +1,16 @@
 using System.Collections.Generic;
+using System.Linq;
 using Ui.Animation.Transition.TransitionData;
 
 namespace Ui.Animation.Transition.TransitionAnimations
 {
-    public class TextReveal : IUiTransition
+    public class TextReveal : UiTransition, IUiTransition
     {
-        private IEnumerable<TextRevealData> _textRevealData;
-
-        public TextReveal(IEnumerable<TextRevealData> textRevealData)
+        private readonly IEnumerable<TextRevealData> _textRevealData;
+        
+        public TextReveal(IEnumerable<UiTransitionData> uiTransitionData) : base(uiTransitionData)
         {
-            _textRevealData = textRevealData;
+            _textRevealData = this.uiTransitionData.Cast<TextRevealData>();
         }
 
         public void Enable()
@@ -19,5 +20,7 @@ namespace Ui.Animation.Transition.TransitionAnimations
         public void Disable()
         {
         }
+
+
     }
 }

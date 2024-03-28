@@ -7,7 +7,7 @@ namespace UI.Screens.Home
 {
     public class HomeScreenResources : MonoBehaviour
     {
-        public Button playButton;
         public List<FadeData> fadeData;
+        public Button playButton;
     }
 }

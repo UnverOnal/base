@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Ui.Animation.Transition;
+using Ui.Animation.Transition.TransitionData;
 
 namespace UI.Screens
 {
@@ -7,27 +8,32 @@ namespace UI.Screens
     {
         public bool IsActive { get; private set; }
 
-        protected readonly List<IUiTransition> uiTransitions;
+        private readonly List<IUiTransition> _uiTransitions;
+        private readonly UiTransitionFactory _factory;
 
         protected ScreenView()
         {
-            uiTransitions = new List<IUiTransition>();
+            _uiTransitions = new List<IUiTransition>();
+            _factory = new UiTransitionFactory();
         }
 
         public void Enable()
         {
             IsActive = true;
-            for (int i = 0; i < uiTransitions.Count; i++)
-                uiTransitions[i].Enable();
+            for (var i = 0; i < _uiTransitions.Count; i++)
+                _uiTransitions[i]?.Enable();
         }
 
         public void Disable()
         {
             IsActive = false;
-            for (int i = 0; i < uiTransitions.Count; i++)
-                uiTransitions[i].Disable();
+            for (var i = 0; i < _uiTransitions.Count; i++)
+                _uiTransitions[i]?.Disable();
         }
 
-        protected abstract void CreateTransitions();
+        protected void CreateTransitions(UiTransitionType type, IEnumerable<UiTransitionData> uiTransitionData)
+        {
+            _uiTransitions.Add(_factory.GetTransition(type, uiTransitionData));
+        }
     }
 }

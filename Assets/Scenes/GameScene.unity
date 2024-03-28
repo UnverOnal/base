@@ -915,12 +915,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fd115ff87a53b545b9822546aa16623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playButton: {fileID: 2012683244}
   fadeData:
   - gameObject: {fileID: 1738453827}
     delayTime: 0
     duration: 0.5
     canvasGroup: {fileID: 1738453829}
+  playButton: {fileID: 2012683244}
 --- !u!1 &2012683242
 GameObject:
   m_ObjectHideFlags: 0
