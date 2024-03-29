@@ -1,8 +1,10 @@
+using Cysharp.Threading.Tasks;
+
 namespace Ui.Animation.Transition
 {
     public interface IUiTransition
     {
-        void Enable();
-        void Disable();
+        UniTask Enable();
+        UniTask Disable();
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Ui.Animation.Transition.TransitionData;
 
 namespace Ui.Animation.Transition.TransitionAnimations
@@ -13,12 +14,14 @@ namespace Ui.Animation.Transition.TransitionAnimations
             _textRevealData = this.uiTransitionData.Cast<TextRevealData>();
         }
 
-        public void Enable()
+        public UniTask Enable()
         {
+            return UniTask.CompletedTask;
         }
 
-        public void Disable()
+        public UniTask Disable()
         {
+            return UniTask.CompletedTask;
         }
 
 

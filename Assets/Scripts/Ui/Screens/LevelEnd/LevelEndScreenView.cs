@@ -6,7 +6,7 @@ namespace Ui.Screens.LevelEnd
     {
         private readonly LevelEndScreenResources _screenResources;
 
-        public LevelEndScreenView(LevelEndScreenResources screenResources)
+        public LevelEndScreenView(LevelEndScreenResources screenResources) : base(screenResources)
         {
             _screenResources = screenResources;
         }

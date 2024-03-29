@@ -26,5 +26,7 @@ namespace Ui.Animation
                 canvasGroup.gameObject.SetActive(false);
             });
         }
+        
+        // public static void ScaleUp
     }
 }

@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using Ui.Animation.Transition.TransitionData;
-using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI.Screens.Home
 {
-    public class HomeScreenResources : MonoBehaviour
+    public class HomeScreenResources : ScreenResources
     {
-        public List<FadeData> fadeData;
+        public List<ScaleUpData> scaleUpData;
         public Button playButton;
     }
 }

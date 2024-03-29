@@ -7,7 +7,7 @@ namespace UI.Screens.Game
     {
         private readonly GameScreenResources _resources;
 
-        public GameScreenView(GameScreenResources screenResources)
+        public GameScreenView(GameScreenResources screenResources) : base(screenResources)
         {
             _resources = screenResources;
             CreateTransitions(UiTransitionType.Fade, screenResources.fadeData);

@@ -8,11 +8,11 @@ namespace UI.Screens.Home
         private readonly GameStatePresenter _statePresenter;
         private readonly HomeScreenResources _resources;
 
-        public HomeScreenView(HomeScreenResources screenResources, GameStatePresenter statePresenter)
+        public HomeScreenView(HomeScreenResources screenResources, GameStatePresenter statePresenter) : base(screenResources)
         {
             _statePresenter = statePresenter;
             _resources = screenResources;
-            CreateTransitions(UiTransitionType.Fade, screenResources.fadeData);
+            CreateTransitions(UiTransitionType.ScaleUp, screenResources.scaleUpData);
         }
 
         public void OnPlayButtonClicked()

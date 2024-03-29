@@ -15,7 +15,7 @@ namespace Ui.Animation.Transition.TransitionAnimations
             _fadeData = this.uiTransitionData.Cast<FadeData>();
         }
 
-        public async void Enable()
+        public async UniTask Enable()
         {
             foreach (var data in _fadeData)
             {
@@ -25,7 +25,7 @@ namespace Ui.Animation.Transition.TransitionAnimations
             }
         }
 
-        public async void Disable()
+        public async UniTask Disable()
         {
             var reversedFadeData = _fadeData.Reverse();
 

@@ -18,6 +18,7 @@ namespace UI.Screens.Home
         public override void Initialize()
         {
             base.Initialize();
+            _screenView.Enable();
             _resources.playButton.onClick.AddListener(_screenView.OnPlayButtonClicked);
         }
 
