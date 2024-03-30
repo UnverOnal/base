@@ -7,6 +7,7 @@ namespace UI.Screens.Home
     public class HomeScreenResources : ScreenResources
     {
         public List<ScaleUpData> scaleUpData;
+        public List<SlideData> slideData;
         public Button playButton;
     }
 }

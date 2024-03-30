@@ -20,20 +20,14 @@ namespace UI.Screens
             _factory = new UiTransitionFactory();
         }
 
-        public async void Enable()
+        public void Enable()
         {
             IsActive = true;
             _screenResources.screenCanvasGroup.alpha = 1f;
             _screenResources.screenGameObject.SetActive(true);
             
-            var tasks = new List<UniTask>();
             for (var i = 0; i < _uiTransitions.Count; i++)
-            {
-                var task = _uiTransitions[i].Enable();
-                tasks.Add(task);
-            }
-
-            await UniTask.WhenAll(tasks);
+                _uiTransitions[i].Enable();
         }
 
         public async void Disable()

@@ -7,10 +7,8 @@ namespace Ui.Animation
     {
         public static void FadeIn(float duration, CanvasGroup canvasGroup)
         {
-            canvasGroup.alpha = 0f;
             canvasGroup.blocksRaycasts = true;
             canvasGroup.interactable = true;
-            canvasGroup.gameObject.SetActive(true);
 
             canvasGroup.DOFade(1f, duration);
         }
@@ -26,7 +24,5 @@ namespace Ui.Animation
                 canvasGroup.gameObject.SetActive(false);
             });
         }
-        
-        // public static void ScaleUp
     }
 }

@@ -12,6 +12,7 @@ namespace UI.Screens.Home
         {
             _statePresenter = statePresenter;
             _resources = screenResources;
+            CreateTransitions(UiTransitionType.Slide, screenResources.slideData);
             CreateTransitions(UiTransitionType.ScaleUp, screenResources.scaleUpData);
         }
 

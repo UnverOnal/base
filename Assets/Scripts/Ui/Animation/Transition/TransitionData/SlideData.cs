@@ -9,6 +9,7 @@ namespace Ui.Animation.Transition.TransitionData
     {
         public Vector3 direction;
         public Ease ease;
+        public float distance;
         public float overshoot;
     }
 }
