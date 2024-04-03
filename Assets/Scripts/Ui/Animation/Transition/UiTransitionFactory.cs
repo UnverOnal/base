@@ -22,7 +22,6 @@ namespace Ui.Animation.Transition
                 UiTransitionType.Fade => new Fade(uiTransitionData),
                 UiTransitionType.ScaleUp => new ScaleUp(uiTransitionData),
                 UiTransitionType.Slide => new Slide(uiTransitionData),
-                UiTransitionType.TextReveal => new TextReveal(uiTransitionData),
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
             };
         }
