@@ -1,3 +1,5 @@
+using Services.AudioService.Scripts;
+using Services.AudioService.Scripts.ResourceManagement;
 using Services.SceneService;
 using UnityEngine;
 using VContainer;
@@ -8,11 +10,13 @@ namespace GameManagement
     public class GameManager : IInitializable
     {
         private readonly ISceneService _sceneService;
+        private readonly IAudioService _audioService;
 
         [Inject]
-        public GameManager(ISceneService sceneService)
+        public GameManager(ISceneService sceneService, IAudioService audioService)
         {
             _sceneService = sceneService;
+            _audioService = audioService;
         }
 
         public void Initialize()

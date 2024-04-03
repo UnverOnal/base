@@ -1,4 +1,5 @@
 using GameManagement;
+using Services.AudioService.Scripts;
 using Services.CommandService;
 using Services.DataStorageService;
 using Services.FileConversionService;
@@ -37,6 +38,8 @@ namespace Scopes
             builder.Register<ICommandService, CommandService>(Lifetime.Singleton);
 
             builder.Register<IDataStorageService, DataStorageService>(Lifetime.Singleton);
+            
+            builder.Register<IAudioService, AudioService>(Lifetime.Singleton);
         }
     }
 }
