@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using Services.AudioService.Scripts;
 using Services.AudioService.Scripts.ResourceManagement;
 using UnityEngine;
 
-namespace AudioManagement.Scripts.SoundType.Types
+namespace Services.AudioService.Scripts.SoundType.Types
 {
     public class Sfx : Sound
     {
@@ -11,8 +10,8 @@ namespace AudioManagement.Scripts.SoundType.Types
 
         public Sfx(SerializableDictionary<string, AudioClipDataSo> audioClipData) : base(audioClipData)
         {
-            Type = SoundType.Sfx;
-            IsMute = SaveLoadSound.LoadMuteStatus(SoundType.Sfx);
+            Type = AudioManagement.Scripts.SoundType.SoundType.Sfx;
+            IsMute = saveLoadSound.LoadMuteStatus(AudioManagement.Scripts.SoundType.SoundType.Sfx);
         }
 
         /// <summary>
@@ -27,7 +26,7 @@ namespace AudioManagement.Scripts.SoundType.Types
 
             if (_sfxPlayData.TryGetValue(clip, out var lastTimePlayed))
             {
-                var infrequency = AudioClipData[clip.ToString()].data.infrequency;
+                var infrequency = audioClipData[clip.ToString()].data.infrequency;
                 if (Mathf.Abs(Time.unscaledTime - lastTimePlayed) < infrequency)
                     return;
                 _sfxPlayData[clip] = Time.unscaledTime;

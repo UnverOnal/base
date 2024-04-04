@@ -1,3 +1,4 @@
+using AudioManagement.Scripts.SoundType;
 using Services.AudioService.Scripts;
 using Services.AudioService.Scripts.ResourceManagement;
 using Services.SceneService;
@@ -13,10 +14,9 @@ namespace GameManagement
         private readonly IAudioService _audioService;
 
         [Inject]
-        public GameManager(ISceneService sceneService, IAudioService audioService)
+        public GameManager(ISceneService sceneService)
         {
             _sceneService = sceneService;
-            _audioService = audioService;
         }
 
         public void Initialize()

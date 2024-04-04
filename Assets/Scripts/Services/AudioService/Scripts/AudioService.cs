@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using AudioManagement.Scripts.SoundType.Types;
 using Services.AudioService.Scripts.ResourceManagement;
+using Services.AudioService.Scripts.SoundType.Types;
 using UnityEngine;
 
 namespace Services.AudioService.Scripts
@@ -30,16 +30,25 @@ namespace Services.AudioService.Scripts
             var sound = GetSoundObject(audioClipDataSo.data.type);
             sound.Play(source, clip);
         }
+        
+        /// <summary>
+        /// Mutes or unmutes the clip specified.
+        /// </summary>
+        public void Mute(AudioClipEnum clip, bool mute)
+        {
+            var soundObject = GetSoundObject(default);
+            soundObject.MuteClip(_sourcePool, clip, mute);
+        }
 
         /// <summary>
-        /// Mutes or unmutes the sound type specified.
+        /// Mutes or unmutes the clips that are of a sound type, i.e. background or sfx currently.
         /// </summary>
         /// <param name="type">Type on which the muting will be based.</param>
         /// <param name="mute">If this is false then unmutes.</param>
-        public void Mute(AudioManagement.Scripts.SoundType.SoundType type, bool mute)
+        public void MuteType(AudioManagement.Scripts.SoundType.SoundType type, bool mute)
         {
             var sound = GetSoundObject(type);
-            sound.Mute(_sourcePool, mute);
+            sound.MuteClips(_sourcePool, mute);
         }
 
         /// <summary>
@@ -48,8 +57,8 @@ namespace Services.AudioService.Scripts
         /// <param name="mute">If this is false then unmutes.</param>
         public void MuteAll(bool mute)
         {
-            Mute(AudioManagement.Scripts.SoundType.SoundType.Sfx, mute);
-            Mute(AudioManagement.Scripts.SoundType.SoundType.Background, mute);
+            MuteType(AudioManagement.Scripts.SoundType.SoundType.Sfx, mute);
+            MuteType(AudioManagement.Scripts.SoundType.SoundType.Background, mute);
         }
 
         /// <summary>
@@ -76,7 +85,7 @@ namespace Services.AudioService.Scripts
         /// Stops the clips that are of a sound type, i.e. background or sfx currently.
         /// Also frees up the regarding sources.
         /// </summary>
-        public void StopMany(AudioManagement.Scripts.SoundType.SoundType type)
+        public void StopType(AudioManagement.Scripts.SoundType.SoundType type)
         {
             var soundObject = GetSoundObject(type);
             soundObject.StopClips(_sourcePool);
@@ -88,8 +97,8 @@ namespace Services.AudioService.Scripts
         /// </summary>
         public void StopAll()
         {
-            StopMany(AudioManagement.Scripts.SoundType.SoundType.Background);
-            StopMany(AudioManagement.Scripts.SoundType.SoundType.Sfx);
+            StopType(AudioManagement.Scripts.SoundType.SoundType.Background);
+            StopType(AudioManagement.Scripts.SoundType.SoundType.Sfx);
         }
 
         private void CreatePool()
