@@ -15,12 +15,13 @@ namespace UI.Screens.Game
         public GameScreenPresenter(GameScreenResources resources, GameStatePresenter statePresenter) : base(statePresenter)
         {
             _resources = resources;
-            _screenView = new GameScreenView(resources);
+            _screenView = new GameScreenView(resources, statePresenter);
         }
 
         public override void Initialize()
         {
             base.Initialize();
+            _resources.homeButton.onClick.AddListener(_screenView.OnHomeButtonClicked);
         }
 
         protected override void OnStateUpdate(GameManagement.GameState.GameState gameState)

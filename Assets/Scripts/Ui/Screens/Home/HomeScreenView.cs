@@ -1,4 +1,5 @@
 using GameState;
+using Ui.Animation.Transition;
 
 namespace UI.Screens.Home
 {
@@ -12,12 +13,13 @@ namespace UI.Screens.Home
         {
             _statePresenter = statePresenter;
             _resources = screenResources;
+            CreateTransitions(UiTransitionType.ScaleUp, _resources.scaleUpData);
         }
 
         public void OnPlayButtonClicked()
         {
             _statePresenter.UpdateGameState(GameManagement.GameState.GameState.Game);
-            Disable();
+            // Disable();
         }
     }
 }
