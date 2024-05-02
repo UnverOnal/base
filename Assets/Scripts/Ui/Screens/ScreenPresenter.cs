@@ -1,9 +1,10 @@
 using System;
+using GameManagement.LifeCycle;
 using GameState;
 
 namespace UI.Screens
 {
-    public abstract class ScreenPresenter : IScreenPresenter, IDisposable
+    public abstract class ScreenPresenter : IGameUnit
     {
         private readonly GameStatePresenter _gameStatePresenter;
 

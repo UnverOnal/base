@@ -1,4 +1,5 @@
 using GameManagement;
+using GameManagement.LifeCycle;
 using GameState;
 using UI;
 using UI.Screens;
@@ -20,7 +21,6 @@ namespace Scopes
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterEntryPoint<GameSceneManager>();
-            builder.Register<UiManager>(Lifetime.Singleton);
             
             RegisterScreens(builder);
             
@@ -30,13 +30,13 @@ namespace Scopes
         private void RegisterScreens(IContainerBuilder builder)
         {
             builder.RegisterInstance(homeScreenResources);
-            builder.Register<HomeScreenPresenter>(Lifetime.Singleton).AsSelf().As<IScreenPresenter>();;
-
+            builder.Register<IGameUnit, HomeScreenPresenter>(Lifetime.Singleton).AsSelf();
+            
             builder.RegisterInstance(gameScreenResources);
-            builder.Register<GameScreenPresenter>(Lifetime.Singleton).AsSelf().As<IScreenPresenter>();
-
+            builder.Register<IGameUnit, GameScreenPresenter>(Lifetime.Singleton).AsSelf();
+            
             builder.RegisterInstance(levelEndScreenResources);
-            builder.Register<LevelEndScreenPresenter>(Lifetime.Singleton).AsSelf().As<IScreenPresenter>();
+            builder.Register<IGameUnit, LevelEndScreenPresenter>(Lifetime.Singleton).AsSelf();
         }
     }
 }
