@@ -1,4 +1,5 @@
 using GameManagement;
+using GameManagement.LevelCounter;
 using GameManagement.LifeCycle;
 using GameState;
 using UI;
@@ -17,6 +18,8 @@ namespace Scopes
         [SerializeField] private HomeScreenResources homeScreenResources;
         [SerializeField] private GameScreenResources gameScreenResources;
         [SerializeField] private LevelEndScreenResources levelEndScreenResources;
+        
+        [SerializeField] private LevelContainer levelContainer;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -25,6 +28,8 @@ namespace Scopes
             RegisterScreens(builder);
             
             builder.Register<GameStatePresenter>(Lifetime.Singleton);
+            
+            RegisterLevel(builder);
         }
         
         private void RegisterScreens(IContainerBuilder builder)
@@ -37,6 +42,12 @@ namespace Scopes
             
             builder.RegisterInstance(levelEndScreenResources);
             builder.Register<IGameUnit, LevelEndScreenPresenter>(Lifetime.Singleton).AsSelf();
+        }
+
+        private void RegisterLevel(IContainerBuilder builder)
+        {
+            builder.Register<LevelPresenter>(Lifetime.Singleton);
+            builder.RegisterInstance(levelContainer);
         }
     }
 }

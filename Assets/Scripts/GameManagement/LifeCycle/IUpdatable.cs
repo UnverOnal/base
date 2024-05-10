@@ -1,6 +1,6 @@
 namespace GameManagement.LifeCycle
 {
-    public interface IUpdateable
+    public interface IUpdatable
     {
         void Update();
     }

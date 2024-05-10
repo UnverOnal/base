@@ -10,16 +10,16 @@ namespace GameManagement
     public class GameSceneManager : IInitializable, ITickable, IDisposable
     {
         [Inject] private readonly IEnumerable<IGameUnit> _gameUnits;
-        private readonly IEnumerable<IUpdateable> _updateables;
+        private readonly IEnumerable<IUpdatable> _updatables;
 
         private readonly bool _canUpdate;
 
         [Inject]
-        public GameSceneManager(IEnumerable<IUpdateable> updateables)
+        public GameSceneManager(IEnumerable<IUpdatable> updatables)
         {
-            _updateables = updateables;
+            _updatables = updatables;
 
-            _canUpdate = !_updateables.Any();
+            _canUpdate = !_updatables.Any();
         }
 
         public void Initialize()
@@ -32,7 +32,7 @@ namespace GameManagement
         {
             if(!_canUpdate) return;
 
-            foreach (var updateable in _updateables)
+            foreach (var updateable in _updatables)
                 updateable.Update();
         }
 

@@ -8,7 +8,7 @@ namespace Services.DataStorageService
 {
     public class DataStorageService : IDataStorageService
     {
-        private const string Filename = "playerData.json";
+        private const string Filename = "gameData.json";
         private const string DirectoryName = "saveFiles";
 
         private string DirectoryPath => $"{Application.persistentDataPath}/{DirectoryName}";
@@ -24,7 +24,9 @@ namespace Services.DataStorageService
                 return deserialized;
             }
 
-            return Activator.CreateInstance<T>();
+            var instance = Activator.CreateInstance<T>();
+            instance.SetDefault();
+            return instance;
         }
 
         public void SetFileContent<T>(T data) where T : LocalSaveData

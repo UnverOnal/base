@@ -358,6 +358,7 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects: []
   sceneDataContainer: {fileID: 11400000, guid: e635e82706db8724ba285f6d07e3f22f, type: 2}
+  gameSettings: {fileID: 11400000, guid: cf6702e0c6ad4254885b15124b4f8281, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
