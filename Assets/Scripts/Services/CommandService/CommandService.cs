@@ -13,7 +13,7 @@ namespace Services.CommandService
         {
             _poolService = poolService;
 
-            _invokerPool = poolService.GetPoolFactory().CreatePool(() => new CommandInvoker());
+            _invokerPool = poolService.GetPool(() => new CommandInvoker());
         }
 
         public CommandInvoker GetCommandInvoker()

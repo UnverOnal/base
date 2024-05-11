@@ -1,7 +1,9 @@
+using System;
+
 namespace Services.PoolingService
 {
     public interface IPoolService
     {
-        ObjectPoolFactory GetPoolFactory();
+        ObjectPool<T> GetPool<T>(Func<T> creator, bool canExpand = true, int maxSize = 0);
     }
 }
