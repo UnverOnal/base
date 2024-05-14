@@ -5,15 +5,14 @@ namespace Services.PoolingService
 {
     public class PoolService : IPoolService
     {
-        private readonly Dictionary<Type, object> _pools = new();
+        private readonly Dictionary<string, object> _pools = new();
 
-        public ObjectPool<T> GetPool<T>(Func<T> creator, bool canExpand = true, int maxSize = 0)
+        public ObjectPool<T> GetPool<T>(Func<T> creator, string poolId, bool canExpand = true, int maxSize = 0)
         {
-            var poolType = typeof(T);
-            if (!_pools.TryGetValue(poolType, out var pool))
+            if (!_pools.TryGetValue(poolId, out var pool))
             {
                 pool = new ObjectPool<T>(creator, canExpand, maxSize);
-                _pools.Add(poolType, pool);
+                _pools.Add(poolId, pool);
             }
 
             return (ObjectPool<T>)pool;

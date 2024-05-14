@@ -4,6 +4,6 @@ namespace Services.PoolingService
 {
     public interface IPoolService
     {
-        ObjectPool<T> GetPool<T>(Func<T> creator, bool canExpand = true, int maxSize = 0);
+        ObjectPool<T> GetPool<T>(Func<T> creator, string poolId, bool canExpand = true, int maxSize = 0);
     }
 }
