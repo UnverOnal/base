@@ -15,8 +15,9 @@ namespace GameManagement
         private readonly bool _canUpdate;
 
         [Inject]
-        public GameSceneManager(IEnumerable<IUpdatable> updatables)
+        public GameSceneManager(IEnumerable<IGameUnit> gameUnits, IEnumerable<IUpdatable> updatables)
         {
+            _gameUnits = gameUnits;
             _updatables = updatables;
 
             _canUpdate = !_updatables.Any();

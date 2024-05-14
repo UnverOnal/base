@@ -5,15 +5,12 @@ namespace Services.CommandService
 {
     public class CommandService : ICommandService
     {
-        private readonly IPoolService _poolService;
         private readonly ObjectPool<CommandInvoker> _invokerPool;
 
         [Inject]
         public CommandService(IPoolService poolService)
         {
-            _poolService = poolService;
-
-            _invokerPool = poolService.GetPool(() => new CommandInvoker());
+            _invokerPool = poolService.GetPool(() => new CommandInvoker(), "CommandPool");
         }
 
         public CommandInvoker GetCommandInvoker()
