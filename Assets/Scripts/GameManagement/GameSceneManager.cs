@@ -20,7 +20,7 @@ namespace GameManagement
             _gameUnits = gameUnits;
             _updatables = updatables;
 
-            _canUpdate = !_updatables.Any();
+            _canUpdate = _updatables.Any();
         }
 
         public void Initialize()
