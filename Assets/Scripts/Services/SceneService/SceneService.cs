@@ -1,6 +1,9 @@
 using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 
 namespace Services.SceneService
@@ -21,7 +24,7 @@ namespace Services.SceneService
         
         public event Action<float> OnProgressUpdated;
         
-        private SceneData _currentScene;
+        private AsyncOperationHandle<SceneInstance> _sceneHandle;
 
         public SceneService(SceneDataContainer sceneDataContainer)
         {
@@ -32,48 +35,47 @@ namespace Services.SceneService
         {
             var sceneData = _sceneDataContainer.GetSceneData(type);
             
-            if (_currentScene != null)
-                UnloadSceneAsync(_currentScene);
+            if (_sceneHandle.IsValid())
+                UnloadSceneAsync(_sceneHandle);
 
-            _currentScene = sceneData;
-
+            AsyncOperationHandle<SceneInstance> loadingHandle = default;
             if (sceneData.ShowLoadingScene)
             {
-                var asyncOperation =
-                    SceneManager.LoadSceneAsync(sceneData.loadingScene.type.ToString(), LoadSceneMode.Additive);
-                await UniTask.WaitUntil(() => asyncOperation.isDone);
+                loadingHandle =
+                    Addressables.LoadSceneAsync(sceneData.loadingScene.type.ToString(), LoadSceneMode.Additive);
+                await UniTask.WaitUntil(() => loadingHandle.IsDone);
             }
 
-            LoadSceneAsync(sceneData);
+            LoadSceneAsync(sceneData, loadingHandle);
         }
         
-        private async void LoadSceneAsync(SceneData sceneData)
+        private async void LoadSceneAsync(SceneData sceneData, AsyncOperationHandle<SceneInstance> loadingHandle)
         {
-            var asyncOperation = SceneManager.LoadSceneAsync(sceneData.type.ToString(), LoadSceneMode.Additive);
-
-            while (!asyncOperation.isDone)
+            _sceneHandle = Addressables.LoadSceneAsync(sceneData.type.ToString(), LoadSceneMode.Additive);
+            _sceneHandle.Completed += _ =>
             {
-                var progress = Mathf.Clamp01(asyncOperation.progress / 0.9f);
-                OnProgressUpdated?.Invoke(progress);
+                SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneData.type.ToString()));
+               
+                OnSceneLoaded?.Invoke();
 
+                if (sceneData.ShowLoadingScene)
+                    UnloadSceneAsync(loadingHandle);
+            };
+
+            while (!_sceneHandle.IsDone)
+            {
+                OnProgressUpdated?.Invoke(_sceneHandle.PercentComplete);
+            
                 await UniTask.Yield();
             }
-
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneData.type.ToString()));
-            
-            OnSceneLoaded?.Invoke();
-
-            if (sceneData.ShowLoadingScene)
-                UnloadSceneAsync(sceneData.loadingScene);
         }
 
-        private void UnloadSceneAsync(SceneData sceneData)
+        private void UnloadSceneAsync(AsyncOperationHandle<SceneInstance> handle)
         {
             OnSceneUnloaded?.Invoke();
-            
-            var sceneToUnload = SceneManager.GetSceneByName(sceneData.type.ToString());
-            if (sceneToUnload.isLoaded)
-                SceneManager.UnloadSceneAsync(sceneToUnload);
+
+            if (handle.IsDone)
+                Addressables.UnloadSceneAsync(handle);
         }
     }
 }
