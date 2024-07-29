@@ -5,10 +5,18 @@ namespace Services.InputService
 {
     public interface IInputService
     {
-        public void IgnoreInput(bool ignore);
+        public event Action<Vector3> OnTap; 
+        public event Action OnRelease; 
+        
+        public Vector3 PointerPosition { get;}
+        
+        public bool IsPointerDown { get;}
+        public bool IsPointerUp { get; }
+        public bool IsPointerHold { get;}
+        
+        public void Ignore(bool ignore);
         public int GetSwipe(float sensitivity);
         public Vector2 GetDragInput(float sensitivity);
-        public event Action<GameObject> OnItemPicked; 
-        public event Action OnItemReleased;
+        public Vector3 GetDragDirection();
     }
 }

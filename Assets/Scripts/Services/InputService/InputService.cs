@@ -5,54 +5,57 @@ namespace Services.InputService
 {
     public class InputService : IInputService
     {
-        public event Action<GameObject> OnItemPicked; 
-        public event Action OnItemReleased;
+        public event Action<Vector3> OnTap;
+        public event Action OnRelease;
         
-        private GameObject _pickedGameObject;
+        public Vector3 PointerPosition { get; private set; }
         
-        private readonly InputTracker _inputTracker;
+        public bool IsPointerDown => Input.GetMouseButtonDown(0);
+        public bool IsPointerUp => Input.GetMouseButtonUp(0);
+        public bool IsPointerHold => Input.GetMouseButton(0);
 
-        public InputService()
-        {
-            _inputTracker = new InputTracker(Camera.main);
-        }
+        private Vector3 DeltaPosition => PointerPosition - _pointerPreviousPosition;
+        private Vector3 _pointerPreviousPosition;
+        private Vector3 _startingPosition;
+        
+        private bool IgnoreInput { get; set; }
         
         public void Update()
         {
-            if (_inputTracker.IgnoreInput)
+            if (IgnoreInput)
                 return;
             
-            _inputTracker.Track();
-            
-            if(_inputTracker.IsPointerDown)
-                Pick();
-            
-            if (_inputTracker.IsPointerUp && _pickedGameObject != null)
+            Track();
+
+            if (IsPointerDown)
             {
-                OnItemReleased?.Invoke();
-                _pickedGameObject = null;
+                OnTap?.Invoke(PointerPosition);
+                _startingPosition = PointerPosition;
             }
+            
+            if (IsPointerUp)
+                OnRelease?.Invoke();
         }
 
-        public void IgnoreInput(bool ignore)
+        public void Ignore(bool ignore)
         {
-            _inputTracker.IgnoreInput = ignore;
+            IgnoreInput = ignore;
         }
 
-        ///Picks item selected by using tap/click. Doesn't run if OnItemPicked event is not subscribed.
-        private void Pick()
+        public Vector3 GetDragDirection()
         {
-            if(OnItemPicked == null)
-                return;
-
-            _pickedGameObject = _inputTracker.GetSelectedGameObject();
-            if(_pickedGameObject != null)
-                OnItemPicked.Invoke(_pickedGameObject);
+            var startingPointerPositionWorld = new Vector3(_startingPosition.x, _startingPosition.y, 10f);
+            startingPointerPositionWorld = Camera.main.ScreenToWorldPoint(startingPointerPositionWorld);
+                
+            var pointerPositionWorld = new Vector3(PointerPosition.x, PointerPosition.y, 10f);
+            pointerPositionWorld = Camera.main.ScreenToWorldPoint(pointerPositionWorld);
+                
+            return (pointerPositionWorld - startingPointerPositionWorld).normalized;
         }
         
         public int GetSwipe(float sensitivity)
         {
-            var input = Vector3.Dot(Vector3.right, _inputTracker.DeltaPosition) * sensitivity / Screen.width;
+            var input = Vector3.Dot(Vector3.right, DeltaPosition) * sensitivity / Screen.width;
 
             var swipeInput = (int)Mathf.Clamp(input, -1.1f, 1.1f);
 
@@ -72,8 +75,22 @@ namespace Services.InputService
 
         private float GetDragOnSingleAxis(Vector3 axis, float sensitivity)
         {
-            var input = Vector3.Dot(axis, _inputTracker.DeltaPosition) * sensitivity / Screen.width;
+            var input = Vector3.Dot(axis, DeltaPosition) * sensitivity / Screen.width;
             return input;
+        }
+
+        private void Track()
+        {
+            if (IsPointerDown)
+            {
+                PointerPosition = Input.mousePosition;
+                _pointerPreviousPosition = PointerPosition;
+                return;
+            }
+            
+            _pointerPreviousPosition = PointerPosition;
+            if (IsPointerHold)
+                PointerPosition = Input.mousePosition;
         }
     }
 }
