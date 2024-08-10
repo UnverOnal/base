@@ -8,6 +8,7 @@ using Ui.Screens.LevelEnd;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+using Core.DesignPatterns.Mediator;
 
 namespace Scopes
 {
