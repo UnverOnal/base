@@ -13,8 +13,6 @@ namespace Scopes
 {
     public class GameScope : CustomScope
     {
-        [SerializeField] private LevelContainer levelContainer;
-
         protected override void Configure(IContainerBuilder builder)
         {
             base.Configure(builder);
@@ -38,7 +36,6 @@ namespace Scopes
         private void RegisterLevel(IContainerBuilder builder)
         {
             builder.Register<LevelPresenter>(Lifetime.Singleton);
-            builder.RegisterInstance(levelContainer);
         }
     }
 }

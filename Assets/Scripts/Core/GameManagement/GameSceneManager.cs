@@ -31,7 +31,7 @@ namespace GameManagement
 
         public void Tick()
         {
-            if(!_canUpdate) return;
+            if (!_canUpdate) return;
 
             foreach (var updateable in _updatables)
                 updateable.Update();

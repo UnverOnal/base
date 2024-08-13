@@ -1,28 +1,29 @@
 using Cysharp.Threading.Tasks;
 using Services.DataStorageService;
+using UnityEngine.AddressableAssets;
 
 namespace GameManagement.LevelCounter
 {
     public class LevelModel
     {
         public bool IsDataLoaded => _gameData != null;
-        
-        private readonly LevelContainer _levelContainer;
+
+        private LevelContainer _levelContainer;
         private readonly IDataStorageService _dataStorageService;
 
         private int _levelIndex;
         private GameData _gameData;
 
-        public LevelModel(LevelContainer levelContainer, IDataStorageService dataStorageService)
+        public LevelModel(IDataStorageService dataStorageService)
         {
-            _levelContainer = levelContainer;
             _dataStorageService = dataStorageService;
         }
 
         public void UpdateLevel() => _levelIndex++;
 
-        public LevelData GetLevelData()
+        public async UniTask<LevelData> GetLevelData()
         {
+            _levelContainer ??= await Addressables.LoadAssetAsync<LevelContainer>("LevelContainer");
             _levelIndex %= _levelContainer.levels.Count;
             return _levelContainer.levels[_levelIndex];
         }
@@ -33,7 +34,7 @@ namespace GameManagement.LevelCounter
             var levelIndex = _gameData.levelIndex;
             _levelIndex = levelIndex;
         }
-        
+
         public void SaveLevelIndex()
         {
             _gameData.levelIndex = _levelIndex;

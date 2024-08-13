@@ -10,31 +10,27 @@ namespace Services.SceneService
 {
     public class SceneService : ISceneService
     {
-        private readonly SceneDataContainer _sceneDataContainer;
+        private SceneDataContainer _sceneDataContainer;
 
         /// <summary>
         /// Called right after the loading of the scene.
         /// </summary>
         public event Action OnSceneLoaded;
-        
+
         /// <summary>
         /// Called right before the unloading of the scene.
         /// </summary>
         public event Action OnSceneUnloaded;
-        
-        public event Action<float> OnProgressUpdated;
-        
-        private AsyncOperationHandle<SceneInstance> _sceneHandle;
 
-        public SceneService(SceneDataContainer sceneDataContainer)
-        {
-            _sceneDataContainer = sceneDataContainer;
-        }
+        public event Action<float> OnProgressUpdated;
+
+        private AsyncOperationHandle<SceneInstance> _sceneHandle;
 
         public async void LoadScene(SceneType type)
         {
+            _sceneDataContainer ??= await Addressables.LoadAssetAsync<SceneDataContainer>("SceneDataContainer");
             var sceneData = _sceneDataContainer.GetSceneData(type);
-            
+
             if (_sceneHandle.IsValid())
                 UnloadSceneAsync(_sceneHandle);
 
@@ -48,14 +44,14 @@ namespace Services.SceneService
 
             LoadSceneAsync(sceneData, loadingHandle);
         }
-        
+
         private async void LoadSceneAsync(SceneData sceneData, AsyncOperationHandle<SceneInstance> loadingHandle)
         {
             _sceneHandle = Addressables.LoadSceneAsync(sceneData.type.ToString(), LoadSceneMode.Additive);
             _sceneHandle.Completed += _ =>
             {
                 SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneData.type.ToString()));
-               
+
                 OnSceneLoaded?.Invoke();
 
                 if (sceneData.ShowLoadingScene)
@@ -65,7 +61,7 @@ namespace Services.SceneService
             while (!_sceneHandle.IsDone)
             {
                 OnProgressUpdated?.Invoke(_sceneHandle.PercentComplete);
-            
+
                 await UniTask.Yield();
             }
         }

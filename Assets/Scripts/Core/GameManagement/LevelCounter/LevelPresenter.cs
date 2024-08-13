@@ -8,24 +8,27 @@ namespace GameManagement.LevelCounter
     {
         private readonly LevelModel _levelModel;
 
+        private LevelData _currentLevel;
+
         [Inject]
-        public LevelPresenter(LevelContainer levelContainer, IDataStorageService dataStorageService)
+        public LevelPresenter(IDataStorageService dataStorageService)
         {
-            _levelModel = new LevelModel(levelContainer, dataStorageService);
+            _levelModel = new LevelModel(dataStorageService);
         }
 
         public async UniTask<LevelData> GetNextLevelData()
         {
             if(!_levelModel.IsDataLoaded)
                 await _levelModel.LoadLevelIndex();
-            
+
             _levelModel.UpdateLevel();
-            return _levelModel.GetLevelData();
+            _currentLevel = await _levelModel.GetLevelData();
+            return _currentLevel;
         }
 
         public LevelData GetCurrentLevelData()
         {
-            return _levelModel.GetLevelData();
+            return _currentLevel;
         }
 
         public void SaveLevel() => _levelModel.SaveLevelIndex();
