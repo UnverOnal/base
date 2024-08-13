@@ -50,8 +50,6 @@ namespace Services.SceneService
             _sceneHandle = Addressables.LoadSceneAsync(sceneData.type.ToString(), LoadSceneMode.Additive);
             _sceneHandle.Completed += _ =>
             {
-                SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneData.type.ToString()));
-
                 OnSceneLoaded?.Invoke();
 
                 if (sceneData.ShowLoadingScene)

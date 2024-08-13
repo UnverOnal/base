@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentReference:
-    TypeName: Scopes.MainScope
+    TypeName: DI.MainScope
   autoRun: 1
   autoInjectGameObjects:
   - {fileID: 1206367057}
@@ -225,7 +225,6 @@ MonoBehaviour:
   - {fileID: 1738453830}
   - {fileID: 833979726}
   - {fileID: 581893295}
-  levelContainer: {fileID: 11400000, guid: 313e00227e5e5064d850c0b8b574e268, type: 2}
 --- !u!4 &649288748
 Transform:
   m_ObjectHideFlags: 0
