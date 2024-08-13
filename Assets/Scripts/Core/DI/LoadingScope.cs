@@ -1,13 +1,13 @@
 using VContainer;
 using VContainer.Unity;
 
-namespace Scopes
+namespace DI
 {
     public class LoadingScope : LifetimeScope
     {
         protected override void Configure(IContainerBuilder builder)
         {
-            
+
         }
     }
 }

@@ -6,11 +6,10 @@ using Services.FileConversionService;
 using Services.InputService;
 using Services.PoolingService;
 using Services.SceneService;
-using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace Scopes
+namespace DI
 {
     public class MainScope : LifetimeScope
     {

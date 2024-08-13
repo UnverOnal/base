@@ -4,13 +4,16 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-public class CustomScope : LifetimeScope
+namespace DI
 {
-    [SerializeField] private List<MonoInstaller> _defaultInstallers = new();
-
-    protected override void Configure(IContainerBuilder builder)
+    public class CustomScope : LifetimeScope
     {
-        _defaultInstallers.ForEach(installer => installer.Install(builder));
-    }
+        [SerializeField] private List<MonoInstaller> _defaultInstallers = new();
 
+        protected override void Configure(IContainerBuilder builder)
+        {
+            _defaultInstallers.ForEach(installer => installer.Install(builder));
+        }
+
+    }
 }

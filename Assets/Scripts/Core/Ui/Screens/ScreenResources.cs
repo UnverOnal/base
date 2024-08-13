@@ -1,5 +1,5 @@
+using DI;
 using UnityEngine;
-using VContainer;
 
 namespace UI.Screens
 {

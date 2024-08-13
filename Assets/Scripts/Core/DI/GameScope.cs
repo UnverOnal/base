@@ -9,7 +9,7 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace Scopes
+namespace DI
 {
     public class GameScope : CustomScope
     {

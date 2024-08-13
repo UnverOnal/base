@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using VContainer;
 
-public abstract class MonoInstaller : MonoBehaviour
+namespace DI
 {
-    public abstract void Install(IContainerBuilder builder);
+    public abstract class MonoInstaller : MonoBehaviour
+    {
+        public abstract void Install(IContainerBuilder builder);
+    }
 }
