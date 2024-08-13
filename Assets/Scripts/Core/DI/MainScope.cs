@@ -16,14 +16,14 @@ namespace Scopes
     {
         [SerializeField] private SceneDataContainer sceneDataContainer;
         [SerializeField] private GameSettings gameSettings;
-        
+
         protected override void Configure(IContainerBuilder builder)
         {
             InstallServices(builder);
 
             builder.RegisterInstance(sceneDataContainer);
             builder.RegisterInstance(gameSettings);
-            
+
             builder.RegisterEntryPoint<GameManager>();
         }
 
@@ -31,7 +31,7 @@ namespace Scopes
         {
             builder.Register<ISceneService, SceneService>(Lifetime.Singleton);
             builder.Register<IPoolService, PoolService>(Lifetime.Singleton);
-            
+
             builder.Register<InputService>(Lifetime.Singleton).As<IInputService>().AsSelf();
             builder.RegisterEntryPoint<InputEntryPoint>();
 
@@ -40,7 +40,7 @@ namespace Scopes
             builder.Register<ICommandService, CommandService>(Lifetime.Singleton);
 
             builder.Register<IDataStorageService, DataStorageService>(Lifetime.Singleton);
-            
+
             builder.Register<IAudioService, AudioService>(Lifetime.Singleton);
         }
     }
