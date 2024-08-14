@@ -6,11 +6,11 @@ namespace Services.PoolingService
     public class ObjectPool<T>
     {
         private readonly Queue<T> _pool;
-        
+
         private readonly Func<T> _objectCreator;
-        
+
         private readonly bool _canExpand;
-        
+
         private readonly int _maxSize;
         private int _counter;
 
@@ -35,7 +35,9 @@ namespace Services.PoolingService
                 if (_counter < _maxSize || _canExpand)
                 {
                     _counter++;
-                    return _objectCreator.Invoke();
+                    var obj = _objectCreator.Invoke();
+                    ((IPoolable)obj).Reset();
+                    return obj;
                 }
 
                 throw new Exception("Pool is full");
